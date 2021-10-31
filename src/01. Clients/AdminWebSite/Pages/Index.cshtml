@@ -1,0 +1,57 @@
+﻿@page
+@using System.Security.Claims
+@model AdminWebSite.Pages.IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+@if (!User.Identity.IsAuthenticated)
+{
+    <div class="text-center">
+        <h3 class="display-4">STORE Administration Page </h3>
+        <h1 class="display-4"><strong></strong> </h1>
+        <hr />
+        <p>Please <a asp-area="Identity" asp-page="/Account/Login">Login</a> to continue.</p>
+    </div>
+}
+else
+{
+    <div class="row">
+        <p class="h4">Products</p>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-image">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Image</th>
+                            <th scope="col">Edit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var product in Model.Products)
+                        {
+                            <tr>
+                                <th scope="row">@product.Name </th>
+                                <td>@product.Description</td>
+                                <td>@product.Quantity</td>
+                                <td class="w-25">
+                                    <img src="images/placeholder.png" class="card-img-top" alt="placeholder image">
+                                </td>
+                                <td>
+                                    <small class="text-muted"><a asp-page="/Products/Product" asp-route-id="@product.Id">Edit</a></small>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+}
